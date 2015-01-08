@@ -1,14 +1,14 @@
 /**
  * Created by mich on 15-1-7.
  */
-//日历
-CALENDAR = function () {
+//日历面板
+CALENDARPANEL = function () {
     this.CURRENT_DATE = new Date();
     this.cells = [];
     this.monthcells = [];
     this.yearcells = [];
     this.yearscells = [];
-    this._mode = 0;//0 : 日历月视图   1：月份选择  (操作)　　２：年份选择
+    this._mode = 0;//0 : 日历月视图   1：月份选择  (操作)　　２：年份选择  3: 年份区间选择
     var _this = this;
 
     //初始化日历数据结构
@@ -34,7 +34,8 @@ CALENDAR = function () {
                 _this.showCurrentDate('YYYY');
                 break;
             case 2:
-                _this.initYearView(_this.CURRENT_DATE.DateSub('y', 10).getFullYear());
+                _this.CURRENT_DATE = _this.CURRENT_DATE.DateSub('y', 10);
+                _this.initYearView(_this.CURRENT_DATE.getFullYear());
                 break;
             case 3:
                 _this.CURRENT_DATE = _this.CURRENT_DATE.DateSub('y', 100);
@@ -71,20 +72,21 @@ CALENDAR = function () {
         switch (_this._mode) {
             case 0:
                 $('#current').html(_this.CURRENT_DATE.Format('YYYY'));
-                $('.monthly').show();
-                $('.daily').hide();
+                $('.monthly').fadeIn();
+                $('.daily').fadeOut(40);
+                $('.dailyHeader').fadeOut(40);
                 _this._mode++;
                 break;
             case 1:
                 _this.initYearView(_this.CURRENT_DATE.getFullYear());
-                $('.yearly').show();
-                $('.monthly').hide();
+                $('.yearly').fadeIn();
+                $('.monthly').fadeOut(40);
                 _this._mode++;
                 break;
             case 2:
                 _this.initYearSetView(_this.CURRENT_DATE.getFullYear());
-                $('.yearsly').show();
-                $('.yearly').hide();
+                $('.yearsly').fadeIn();
+                $('.yearly').fadeOut(40);
                 _this._mode++
                 break;
             default:
@@ -98,7 +100,7 @@ CALENDAR = function () {
     var top = $('.dailyPanel').offset().top;
     var width = $('.dailyPanel').outerWidth();
     var contentWidth = $('.daily').outerWidth();
-    var left = (width - contentWidth) / 2;
+    var left = (width - contentWidth) / 2  + 8;//8为daily的border和？对？
     $('<div class="monthly"></div>').css({top: top, left: left}).appendTo($('.dailyPanel')).hide();
     $('<div class="yearly"></div>').css({top: top, left: left}).appendTo($('.dailyPanel')).hide();
     $('<div class="yearsly"></div>').css({top: top, left: left}).appendTo($('.dailyPanel')).hide();
@@ -149,8 +151,9 @@ CALENDAR = function () {
         _this.CURRENT_DATE.setMonth(m);
         _this.initMonthView();
         _this._mode = 0;
-        $('.monthly').hide();
-        $('.daily').show();
+        $('.monthly').fadeOut(40);
+        $('.daily').fadeIn();
+        $('.dailyHeader').fadeIn();
     });
 
     $('.yearly').delegate('.year', 'click', function () {
@@ -160,8 +163,8 @@ CALENDAR = function () {
         var y = $this.data('cell').y;
         _this.CURRENT_DATE.setFullYear(y);
         _this.showCurrentDate('YYYY');
-        $('.monthly').show();
-        $('.yearly').hide();
+        $('.monthly').fadeIn();
+        $('.yearly').fadeOut(40);
 
     });
     $('.yearsly').delegate('.years', 'click', function () {
@@ -169,33 +172,32 @@ CALENDAR = function () {
         var $this = $(this);
         var y = $this.data('cell').b;
         _this.initYearView(y);
-        $('.yearly').show();
-        $('.yearsly').hide();
+        $('.yearly').fadeIn();
+        $('.yearsly').fadeOut(40);
 
     });
 }
 
-CALENDAR.prototype.setCurrentDate = function () {
+CALENDARPANEL.prototype.setCurrentDate = function () {
 
 }
-CALENDAR.prototype.getCurrentDate = function () {
+CALENDARPANEL.prototype.getCurrentDate = function () {
     return this.CURRENT_DATE;
 }
-CALENDAR.prototype.showCurrentDate = function (format) {
+CALENDARPANEL.prototype.showCurrentDate = function (format) {
     $('#current').html(this.CURRENT_DATE.Format(format));
 }
 /**
  * 根据日期渲染当前月视图
  * @param date
  */
-CALENDAR.prototype.initMonthView = function (date) {
+CALENDARPANEL.prototype.initMonthView = function (date) {
     this.CURRENT_DATE = date || this.CURRENT_DATE;
     this.showCurrentDate('YYYY年MM月');
     var f = this.CURRENT_DATE.FirstDayOfMonth();
     var days = this.CURRENT_DATE.MaxDayOfDate()
     var w = f.getDay();
     if (w == 0) {
-        //cells[1][0].setDate(f);
         var sub = 1;
         for (var c = DAYCELL.COL - 1; c >= 0; c--) {
             this.cells[0][c].setDate(f.DateSub('d', sub++));
@@ -207,7 +209,6 @@ CALENDAR.prototype.initMonthView = function (date) {
         }
 
     } else {
-        //cells[0][w].setDate(f);
         var sub = 1;
         for (var c = w - 1; c >= 0; c--) {
             this.cells[0][c].setDate(f.DateSub('d', sub++));
@@ -226,7 +227,7 @@ CALENDAR.prototype.initMonthView = function (date) {
  * 根据日期渲染当前年选择视图
  * @param year  年份
  */
-CALENDAR.prototype.initYearView = function (year) {
+CALENDARPANEL.prototype.initYearView = function (year) {
 
     var yu = year % 10;
     var r = Math.floor((yu + 1) / YEARCELL.COL);
@@ -256,7 +257,7 @@ CALENDAR.prototype.initYearView = function (year) {
  * 根据日期渲染年段选择视图
  * @param year  年份
  */
-CALENDAR.prototype.initYearSetView = function (year) {
+CALENDARPANEL.prototype.initYearSetView = function (year) {
     var century = Math.floor(year / 100);
     var begin = century * 100 - 10;
     for (var i = 0; i < YEARSCELL.ROW; i++) {

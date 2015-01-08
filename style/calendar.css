@@ -1,42 +1,21 @@
+.daily,.monthly,.yearly,.yearsly {
+    margin: auto;
+    width: 700px;
+    height: 600px;
+    background-color: #FFFFD9;
+    position: fixed;
+    border-right: 1px solid #464646;
+    border-bottom: 1px solid #464646;
+}
 .daily {
-    margin: auto;
-    width: 700px;
-    height: 600px;
     position: relative;
-    background-color: #FFFFD9;
 }
-.monthly {
-    margin: auto;
-    width: 700px;
-    height: 600px;
-    position: relative;
-    background-color: #FFFFD9;
-    position: fixed;
-}
-.yearly {
-    margin: auto;
-    width: 700px;
-    height: 600px;
-    position: relative;
-    background-color: #FFFFD9;
-    position: fixed;
-}
-.yearsly {
-    margin: auto;
-    width: 700px;
-    height: 600px;
-    position: relative;
-    background-color: #FFFFD9;
-    position: fixed;
-}
-
 .dailyHeader {
     margin: auto;
     width: 700px;
     height: 100px;
     position: relative;
 }
-
 #opt {
     margin: auto;
     width: 700px;
@@ -62,21 +41,23 @@
     width: 500px;
     display: block;
 }
-
 .day,.month,.year,.years{
     cursor: pointer;
     font-size: 50px;
-    margin: 4px;
+    border-top: 1px solid #464646;
+    border-left: 1px solid #464646;
 }
-
+.years{
+    font-size: 60px;
+    padding-top: 50px;
+    line-height: 50px;
+}
+.dailyHeader div{
+    border: none;
+}
 .day.selected{
     background-color: #86B9D6;
 }
-
 .day.disabled,.year.disabled,.years.disabled {
     color: #AAAAAA;
-}
-
-.dailyPanel {
-    /*margin-top: 100px;*/
 }
