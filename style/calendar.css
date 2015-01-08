@@ -1,0 +1,74 @@
+.daily {
+    margin: auto;
+    width: 700px;
+    height: 600px;
+    position: relative;
+    background-color: #FFFFD9;
+}
+.monthly {
+    margin: auto;
+    width: 700px;
+    height: 600px;
+    position: relative;
+    background-color: #FFFFD9;
+    position: fixed;
+}
+.yearly {
+    margin: auto;
+    width: 700px;
+    height: 600px;
+    position: relative;
+    background-color: #FFFFD9;
+    position: fixed;
+}
+
+.dailyHeader {
+    margin: auto;
+    width: 700px;
+    height: 100px;
+    position: relative;
+}
+
+#opt {
+    margin: auto;
+    width: 700px;
+    height: 100px;
+    font-size: 50px;
+    line-height: 100px;
+    position: relative;
+}
+#opt .pre{
+    cursor: pointer;
+    position: absolute;
+    left: 25px;
+}
+#opt .next{
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+}
+#opt #current{
+    cursor: pointer;
+    margin: auto;
+    text-align: center;
+    width: 500px;
+    display: block;
+}
+
+.day,.month,.year{
+    cursor: pointer;
+    font-size: 50px;
+    margin: 4px;
+}
+
+.day.selected{
+    background-color: #86B9D6;
+}
+
+.day.disabled,.year.disabled {
+    color: #AAAAAA;
+}
+
+.dailyPanel {
+    /*margin-top: 100px;*/
+}
