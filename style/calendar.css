@@ -21,6 +21,14 @@
     background-color: #FFFFD9;
     position: fixed;
 }
+.yearsly {
+    margin: auto;
+    width: 700px;
+    height: 600px;
+    position: relative;
+    background-color: #FFFFD9;
+    position: fixed;
+}
 
 .dailyHeader {
     margin: auto;
@@ -55,7 +63,7 @@
     display: block;
 }
 
-.day,.month,.year{
+.day,.month,.year,.years{
     cursor: pointer;
     font-size: 50px;
     margin: 4px;
@@ -65,7 +73,7 @@
     background-color: #86B9D6;
 }
 
-.day.disabled,.year.disabled {
+.day.disabled,.year.disabled,.years.disabled {
     color: #AAAAAA;
 }
 
