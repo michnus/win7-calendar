@@ -1,58 +1,61 @@
+@cellSize:100px;
+@cell-border-color:#464646;
+
 .daily,.monthly,.yearly,.yearsly {
     margin: auto;
-    width: 700px;
-    height: 600px;
+    width: @cellSize * 7;
+    height: @cellSize * 6;
     background-color: #FFFFD9;
     position: absolute;
-    border-right: 1px solid #464646;
-    border-bottom: 1px solid #464646;
+    border-right: 1px solid @cell-border-color;
+    border-bottom: 1px solid @cell-border-color;
 }
 .daily,.dailyPanel{
     position: relative;
 }
 .dailyHeader {
     margin: auto;
-    width: 700px;
-    height: 100px;
+    width: @cellSize * 7;;
+    height: @cellSize;
     position: relative;
 }
 #opt {
     margin: auto;
-    width: 700px;
-    height: 100px;
+    width: @cellSize * 7;
+    height: @cellSize;
     position: relative;
 }
 #opt span{
-    font-size: 50px;
-    line-height: 100px;
+    font-size: @cellSize / 2;
+    line-height: @cellSize;
 }
 #opt .pre{
     cursor: pointer;
     position: absolute;
-    left: 25px;
+    left: @cellSize / 4;
 }
 #opt .next{
     cursor: pointer;
     position: absolute;
-    right: 25px;
+    right: @cellSize / 4;
 }
 #opt #current{
     cursor: pointer;
     margin: auto;
     text-align: center;
-    width: 500px;
+    width: @cellSize * 5;
     display: block;
 }
 .day,.month,.year,.years{
     cursor: pointer;
-    font-size: 50px;
-    border-top: 1px solid #464646;
-    border-left: 1px solid #464646;
+    font-size: @cellSize / 2;
+    border-top: 1px solid @cell-border-color;
+    border-left: 1px solid @cell-border-color;
 }
 .years{
-    font-size: 60px;
-    padding-top: 50px;
-    line-height: 50px;
+    font-size: @cellSize / 2 + @cellSize / 10;
+    padding-top: @cellSize / 2;
+    line-height: @cellSize / 2;
 }
 .dailyHeader div{
     border: none;

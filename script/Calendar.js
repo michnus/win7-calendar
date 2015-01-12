@@ -11,6 +11,19 @@ CALENDARPANEL = function () {
     this._mode = 0;//0 : 日历月视图   1：月份选择  (操作)　　２：年份选择  3: 年份区间选择
     var _this = this;
 
+    var inited = false;
+    var init = function(){
+        if(inited)
+            return;
+        var top = $('.dailyPanel').offset().top;
+        var width = $('.dailyPanel').outerWidth();
+        var contentWidth = $('.daily').outerWidth();
+        var left = (width - contentWidth) / 2 ;
+        $('.monthly').css({top: 0, left: left});
+        $('.yearly').css({top: 0, left: left});
+        $('.yearsly').css({top: 0, left: left});
+    }
+
     //初始化日历数据结构
     for (var r = 0; r < DAYCELL.ROW; r++) {
         this.cells[r] = [];
@@ -69,12 +82,13 @@ CALENDARPANEL = function () {
     });
 
     $('#opt > #current').click(function () {
+        init();
         switch (_this._mode) {
             case 0:
                 $('#current').html(_this.CURRENT_DATE.Format('YYYY'));
                 $('.monthly').fadeIn();
-                $('.daily').fadeOut(40);
-                $('.dailyHeader').fadeOut(40);
+                $('.daily').fadeTo(40,0);
+                $('.dailyHeader').fadeTo(40,0);
                 _this._mode++;
                 break;
             case 1:
@@ -92,18 +106,12 @@ CALENDARPANEL = function () {
             default:
                 break;
         }
-
-
     });
 
 
-    var top = $('.dailyPanel').offset().top;
-    var width = $('.dailyPanel').outerWidth();
-    var contentWidth = $('.daily').outerWidth();
-    var left = (width - contentWidth) / 2  + 8;//8为daily的border和？对？
-    $('<div class="monthly"></div>').css({top: top, left: left}).appendTo($('.dailyPanel')).hide();
-    $('<div class="yearly"></div>').css({top: top, left: left}).appendTo($('.dailyPanel')).hide();
-    $('<div class="yearsly"></div>').css({top: top, left: left}).appendTo($('.dailyPanel')).hide();
+    $('<div class="monthly"></div>').appendTo($('.dailyPanel')).hide();
+    $('<div class="yearly"></div>').appendTo($('.dailyPanel')).hide();
+    $('<div class="yearsly"></div>').appendTo($('.dailyPanel')).hide();
 
     //初始化月份数据结构
     for (var r = 0; r < MONTHCELL.ROW; r++) {
@@ -133,7 +141,7 @@ CALENDARPANEL = function () {
     this.yearscells[YEARSCELL.ROW - 1][YEARSCELL.COL - 1].disabled();
 
 
-//事件
+    //事件
     $('.daily').delegate('.day', 'click', function () {
         var $this = $(this);
         if ($this.hasClass('disabled')) {
@@ -152,8 +160,8 @@ CALENDARPANEL = function () {
         _this.initMonthView();
         _this._mode = 0;
         $('.monthly').fadeOut(40);
-        $('.daily').fadeIn();
-        $('.dailyHeader').fadeIn();
+        $('.daily').fadeTo(40,1);
+        $('.dailyHeader').fadeTo(40,1);
     });
 
     $('.yearly').delegate('.year', 'click', function () {
